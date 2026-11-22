@@ -1,0 +1,24 @@
+DROP TABLE IF EXISTS transactions;
+DROP TABLE IF EXISTS categories;
+DROP TABLE IF EXISTS accounts;
+
+
+CREATE TABLE accounts (
+    id INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    nom TEXT NOT NULL,
+    type TEXT
+);
+
+CREATE TABLE categories (
+    id  INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    nom TEXT NOT NULL UNIQUE
+);
+
+CREATE TABLE transactions (
+    id  INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    date DATE NOT NULL,
+    libelle TEXT NOT NULL,
+    montant INTEGER NOT NULL,
+    account_id INTEGER NOT NULL REFERENCES accounts(id),
+    category_id INTEGER REFERENCES categories(id)
+);
